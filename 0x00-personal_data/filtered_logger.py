@@ -9,5 +9,8 @@ from typing import List
 
 def filter_datum(fields: List[str], redaction: str,
                  message: str, separator: str) -> str:
-    pattern = f"({'|'.join(fields)})=[^{separator}]+"
-    return re.sub(pattern, lambda m: f"{m.group(1)}={redaction}", message)
+    # Escape separator to handle special characters in the separator (e.g., '|', '.', etc.)
+    escaped_separator = re.escape(separator)
+    pattern = rf"(?P<field>{'|'.join(map(re.escape, fields))})=[^{escaped_separator}]+"
+    return re.sub(pattern, lambda m: f"{m.group('field')}={redaction}", message)
+
