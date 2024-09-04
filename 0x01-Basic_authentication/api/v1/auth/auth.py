@@ -18,21 +18,29 @@ class Auth:
         '''
         if path == None:
             return True
-        if excluded_paths == None or len(excluded_paths) == 0:
+        if not excluded_paths:
             return True
         if not path.endswith('/'):
             path += '/'
-            for excluded_path in excluded_paths:
-                if not excluded_path.endswith('/') or excluded_path == path:
-                    return True
+        for excluded_path in excluded_paths:
+            if not excluded_path.endswith('/'):
+                path += '/'
+            if path == excluded_path:
                 return False
+        return False
 
     def authorization_header(self, request=None) -> str:
         '''
         def authorized_header(): public method
         Returns: None
         '''
-        return None
+        if request is None:
+            return None
+        if 'Authorization' not in request:
+            return None
+        else:
+            return request.header.get('Authorization')
+
 
     def current_user(self, request=None) -> TypeVar('User'):
         '''
