@@ -26,18 +26,19 @@ def stats() -> str:
     return jsonify(stats)
 
 
-@app_views.route('/unauthorized/', methods=['GET'], strict_slashes=False)
-def unauthorized() -> str:
-    '''
-    test for the route when unauthorized is called
-    '''
-
+@app_views.route('/unauthorized', methods=['GET'], strict_slashes=False)
+def unauthorized():
+    """
+    Get api unauthorized
+    Return:
+        unauthorized error 401
+    """
     return abort(401)
 
 
-@app_views.route('/forbidden/', strict_slashes=False)
-def forbidden() -> str:
-    '''
-    forbidden error
-    '''
+@app_views.route("/forbidden", methods=["GET"], strict_slashes=False)
+def forbidden():
+    """
+    Returns: forbidden error
+    """
     return abort(403)
