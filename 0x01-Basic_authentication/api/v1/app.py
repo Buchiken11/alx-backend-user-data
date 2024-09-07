@@ -7,7 +7,7 @@ from api.v1.views import app_views
 from flask import Flask, jsonify, abort, request
 from flask_cors import (CORS, cross_origin)
 import os
-
+from api.v1.auth.auth import Auth
 
 app = Flask(__name__)
 app.register_blueprint(app_views)
@@ -22,7 +22,8 @@ if auth_type == 'basic_auth':
 
 @app.errorhandler(404)
 def not_found(error) -> str:
-    """ Not found handler
+    """
+    Not found handler
     """
     return jsonify({"error": "Not found"}), 404
 
@@ -45,7 +46,8 @@ def forbidden(error) -> str:
 
 @app.before_request
 def authenticate_user():
-    """Authenticates a user before processing a request.
+    """
+    Authenticates a user before processing a request.
     """
     if auth:
         excluded_paths = [

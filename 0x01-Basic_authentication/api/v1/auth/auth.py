@@ -6,7 +6,7 @@ authorization and authentication logic for the API.
 
 from flask import Flask
 from typing import List, TypeVar
-import fnmatch
+# import fnmatch
 
 
 class Auth:
@@ -22,17 +22,20 @@ class Auth:
         Returns:
             bool: False
         """
-        if path is None:
-            return True
+        if path and not path.endswith('/'):
+            path = path + '/'  # path = path + '/'
 
-        if excluded_paths is None or not excluded_paths:
-            return None
-
-        for excluded in excluded_paths:
-            if fnmatch.fnmatch(path, excluded_path):
-                return False
+        if not path or path not in excluded_paths:
 
             return True
+
+        if not excluded_paths or excluded_paths == []:
+
+            return True
+
+        if path in excluded_paths:
+
+            return False
 
     def authorization_header(self, request=None) -> str:
         """
