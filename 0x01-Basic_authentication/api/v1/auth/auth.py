@@ -1,4 +1,4 @@
-#!/usr/bin/env pythone
+#!/usr/bin/env python3
 
 from flask import Flask
 from typing import List, TypeVar
@@ -7,6 +7,7 @@ from typing import List, TypeVar
 class Auth:
     """
     Auth class to manage authentication
+    with public methods
     """
 
     def require_auth(self, path: str, excluded_paths: List[str]) -> bool:
