@@ -10,6 +10,7 @@ app = Flask(__name__)
 app.config["JSONIFY_PRETTYPRINT_REGULAR"] = True
 AUTH = Auth()
 
+
 @app.route('/', methods=['GET'], strict_slashes=False)
 def home('/'):
     '''
@@ -18,6 +19,7 @@ def home('/'):
 
     '''
     return jsonify({"message": "Bienvenue"})
+
 
 @app.route('/users', methods=['POST'], strict_slashes=False)
 def users():
@@ -33,5 +35,3 @@ def users():
         return jsonify({"email": email, "message": "user created"})
     except ValueError:
         return jsonify({"message": "email already registered"}), 400
-
-

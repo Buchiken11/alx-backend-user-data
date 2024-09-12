@@ -23,7 +23,7 @@ class Auth:
                 - email: user's email
                 - password: user's password
             Return:
-                - User 
+                - User
         """
         try:
             user = self._db.find_user_by(email=email)
@@ -33,11 +33,12 @@ class Auth:
         else:
             raise ValueError(f"User {email} already exists")
 
+
 def _hash_password(password: str) -> bytes:
     '''
     a method for generating hashed password using bcrypt
     Args:
-        
+
         Password: the original user's password to be hashed
 
         Returns:
@@ -45,14 +46,14 @@ def _hash_password(password: str) -> bytes:
     '''
     if password is None:
         return None
-        
+
     salt = bcrypt.gensalt()
 
     return bcrypt.hashpw(password.encode('utf-8'), salt)
 
 
 def valid_login(self, email: str, password: str) -> bool:
-    ''' 
+    '''
     Endpoint to Checks if password is valid
     Args:
     - email: user's email
@@ -68,6 +69,7 @@ def valid_login(self, email: str, password: str) -> bool:
     if not bcrypt.checkpw(password.encode('utf-8'), user.hashed_password):
         return False
     return True
+
 
 def _generate_uuid() -> str:
     '''Generates unique ids
